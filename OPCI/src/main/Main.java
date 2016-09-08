@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,34 +33,46 @@ public class Main {
 
                 loads.createNewFile();
             } catch (IOException ex) {
-                
+
                 System.out.println("Failed to create loads.txt");
             }
         }
+
         List<String> loadedFiles = new ArrayList();
-        if(loads.exists()){
-            
+        if (loads.exists()) {
+
             try {
-                
+
                 Scanner reader = new Scanner(loads);
                 reader.useDelimiter("\\n");
-                for (int i = 0; i < 5; i++) {
-                    
-                    if(!reader.hasNext()){
-                        
+                for (int i = 0; i < 3; i++) {
+
+                    if (!reader.hasNext()) {
+
                         break;
                     }
+
                     loadedFiles.add(reader.next());
                 }
             } catch (FileNotFoundException ex) {
-                
+
                 System.out.println("Failed to read from loads.txt");
             }
         }
-        if(!loadedFiles.isEmpty()){
-            
-            System.out.println(loadedFiles);
-            //do stuff
+
+        String fSelec = "Input New File";
+        if (!loadedFiles.isEmpty()) {
+
+            loadedFiles.add(fSelec);
+            fSelec = (String) JOptionPane.showInputDialog(null, null, "File Selection", 0, null, loadedFiles.toArray(), "Input new file");
+
         }
+
+        if (fSelec.equals("Input New File")) {
+
+            fSelec = (String) JOptionPane.showInputDialog(null, "Please input the file path", "File Input", 0);
+        }
+        
+        System.out.println(fSelec);
     }
 }
